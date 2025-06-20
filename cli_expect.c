@@ -1,24 +1,4 @@
-#include <stdint.h>
-#include <string.h>
-#include <stdbool.h>
-#include <stdlib.h>
-#include <stdio.h>
-
-typedef enum {
-  unsigned_int,
-  signed_int,
-  string,
-  character,
-  boolean,
-} cli_option_type;
-
-typedef struct {
-  cli_option_type type;
-  char* option_long_name;
-  char* option_short_name;
-  void* option_default_value;
-  char* option_description;
-} cli_option;
+#include "cli_expect.h"
 
 cli_option example_options[] = {
   {
@@ -37,7 +17,7 @@ cli_option example_options[] = {
   }
 };
 
-void print_default_value(void* _value, cli_option_type _type) {
+static void print_default_value(void* _value, cli_option_type _type) {
   switch (_type) {
     case unsigned_int:
     case signed_int:
@@ -62,7 +42,7 @@ void print_default_value(void* _value, cli_option_type _type) {
   }
 }
 
-void process_help_message(cli_option _template[], int _count, char** _input) {
+static void process_help_message(cli_option _template[], int _count, char** _input) {
   uint8_t iterator;
   bool need_to_print_help;
 
